@@ -74,7 +74,7 @@ export default function UmkmForm({ action, initial }: { action: Action; initial?
         </Grid>
       </Section>
 
-      <Section title="Media & Publikasi">
+      <Section title="Media dan Publikasi">
         <Grid>
           <Field label="URL Foto Usaha" name="photoUrl" defaultValue={initial?.photoUrl ?? ""} />
         </Grid>
