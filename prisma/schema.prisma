@@ -1,0 +1,70 @@
+// Prisma schema — Pemetaan Digital & Direktori UMKM Kuliner
+// Multidisiplin 2 - Faiza Tanjia (Teknik Komputer) - KKNT IDBU 58
+// Kelurahan Sendangmulyo, RW 09
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+/// Profil & lokasi UMKM kuliner hasil pendataan lapangan (observasi + wawancara).
+/// Titik koordinat dipakai untuk render peta digital & menghitung persebaran.
+model Umkm {
+  id        String @id @default(uuid()) @db.Uuid
+  /// Slug unik untuk URL direktori publik & tujuan QR Code, mis: warung-bu-siti-a1b2
+  slug      String @unique
+
+  businessName String
+  ownerName    String
+  phone        String?
+  instagram    String?
+
+  businessType BusinessType
+  /// Deskripsi singkat produk unggulan, dipakai di kartu direktori
+  description  String?
+
+  address String
+  rt      String
+  rw      String @default("09")
+
+  latitude       Decimal? @db.Decimal(10, 7)
+  longitude      Decimal? @db.Decimal(10, 7)
+  googleMapsLink String?
+
+  photoUrl String?
+
+  /// Kondisi usaha hasil observasi sederhana, dipakai untuk analisis potensi
+  condition UmkmCondition @default(CUKUP)
+  /// Sudah tercatat di legalitas (NIB/Halal) oleh tim Multidisiplin 1 atau belum — dipakai untuk analisis potensi
+  hasLegality Boolean @default(false)
+
+  isPublished Boolean @default(true)
+
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @db.Timestamptz(6)
+
+  @@index([businessType])
+  @@index([rt, rw])
+  @@map("peta_umkm")
+}
+
+enum BusinessType {
+  MAKANAN_BERAT
+  MINUMAN
+  JAJANAN_CAMILAN
+  KATERING
+  KERAJINAN
+  LAINNYA
+}
+
+enum UmkmCondition {
+  BAIK
+  CUKUP
+  PERLU_PERHATIAN
+}

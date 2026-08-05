@@ -1,0 +1,93 @@
+@font-face {
+  font-family: 'Avenir';
+  src: url('/fonts/Avenir\ Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Avenir';
+  src: url('/fonts/Avenir\ Book.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Avenir';
+  src: url('/fonts/Avenir\ Regular.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Avenir';
+  src: url('/fonts/Avenir\ Heavy.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Avenir';
+  src: url('/fonts/Avenir\ Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  ::selection {
+    background: #e3a234;
+    color: #12181a;
+  }
+  :focus-visible {
+    outline: 2px solid #e3a234;
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .bg-grid-pattern {
+    background-image:
+      linear-gradient(rgba(244, 241, 230, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(244, 241, 230, 0.05) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+}
+
+/* Leaflet base styles (import replacement — kept minimal & themed to the app) */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  background: #182428;
+}
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background: #182428 !important;
+  color: #f4f1e6;
+  border-radius: 4px;
+  border: 1px solid #2a3538;
+}
+.leaflet-popup-tip {
+  background: #182428;
+}
+.leaflet-popup-content {
+  margin: 12px 14px;
+}
+.leaflet-control-attribution {
+  background: rgba(24, 36, 40, 0.85) !important;
+  color: #f4f1e6a0 !important;
+}
+.leaflet-control-attribution a {
+  color: #e3a234 !important;
+}
+.leaflet-bar a {
+  background-color: #182428 !important;
+  color: #f4f1e6 !important;
+  border-bottom: 1px solid #2a3538 !important;
+}
+.leaflet-bar a:hover {
+  background-color: #2a3538 !important;
+}
