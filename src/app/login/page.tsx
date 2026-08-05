@@ -1,64 +1,25 @@
-"use client";
+import { redirect } from "next/navigation";
+import { getSession } from "@/lib/session";
+import LoginForm from "@/components/LoginForm";
 
-import { useFormState, useFormStatus } from "react-dom";
-import { login } from "@/app/actions/auth";
-import type { AuthFormState } from "@/app/actions/auth";
-
-export default function LoginForm({ next }: { next?: string }) {
-  const [state, formAction] = useFormState<AuthFormState, FormData>(login, {});
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: { next?: string };
+}) {
+  const session = await getSession();
+  if (session) redirect("/admin/umkm");
 
   return (
-    <form action={formAction} className="space-y-5">
-      <input type="hidden" name="next" value={next ?? "/admin/umkm"} />
-
-      {state?.error && (
-        <p className="rounded-sm border border-clay/50 bg-clay/10 px-4 py-3 text-sm text-clay">
-          {state.error}
-        </p>
-      )}
-
-      <div>
-        <label className="mb-1.5 block font-mono text-[11px] uppercase tracking-wider text-paper/50">
-          Email
-        </label>
-        <input
-          name="email"
-          type="email"
-          required
-          autoComplete="username"
-          className="w-full rounded-sm border border-line bg-plate px-3.5 py-2.5 text-sm text-paper outline-none focus:border-gold"
-          placeholder="admin@sendangmulyo.id"
-        />
+    <div className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-6 py-16">
+      <p className="font-display text-xs text-teal">Area Admin</p>
+      <h1 className="mt-2 font-display text-3xl font-900">Masuk</h1>
+      <p className="mt-1 text-sm text-paper/60">
+        Halaman yang bersangkutan dengan pengelolaan UMKM hanya dapat diakses oleh tim KKNT. Silakan login terlebih dahulu.
+      </p>
+      <div className="mt-8">
+        <LoginForm next={searchParams.next} />
       </div>
-
-      <div>
-        <label className="mb-1.5 block font-mono text-[11px] uppercase tracking-wider text-paper/50">
-          Kata Sandi
-        </label>
-        <input
-          name="password"
-          type="password"
-          required
-          autoComplete="current-password"
-          className="w-full rounded-sm border border-line bg-plate px-3.5 py-2.5 text-sm text-paper outline-none focus:border-gold"
-          placeholder="••••••••"
-        />
-      </div>
-
-      <SubmitButton />
-    </form>
-  );
-}
-
-function SubmitButton() {
-  const { pending } = useFormStatus();
-  return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="w-full rounded-sm bg-gold px-5 py-3 font-mono text-xs uppercase tracking-wider text-ink transition hover:bg-gold/90 disabled:opacity-50"
-    >
-      {pending ? "Memeriksa…" : "Masuk"}
-    </button>
+    </div>
   );
 }

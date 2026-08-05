@@ -19,13 +19,13 @@ export default async function Navbar() {
           <span className="flex h-8 w-8 items-center justify-center rounded-sm border border-gold/60 font-display text-sm font-800 text-gold">
             09
           </span>
-          <span className="font-display text-[15px] font-800 uppercase tracking-wide">
+          <span className="font-display text-[15px] font-800 tracking-wide">
             Peta UMKM <span className="text-gold">Sendangmulyo</span>
           </span>
         </Link>
 
         <div className="flex items-center gap-3">
-          <nav className="flex items-center gap-1 font-mono text-xs uppercase tracking-wider">
+          <nav className="flex items-center gap-1 font-display text-xs tracking-wider">
             {links.map((l) => (
               <Link
                 key={l.href}
@@ -43,7 +43,7 @@ export default async function Navbar() {
             ) : (
               <Link
                 href="/login"
-                className="rounded-sm border border-line px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-paper/70 transition hover:border-paper/40 hover:text-paper"
+                className="rounded-sm border border-line px-3 py-1.5 font-display text-xs tracking-wider text-paper/70 transition hover:border-paper/40 hover:text-paper"
               >
                 Masuk
               </Link>

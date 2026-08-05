@@ -18,7 +18,7 @@ export default function LoginForm({ next }: { next?: string }) {
       )}
 
       <div>
-        <label className="mb-1.5 block font-mono text-[11px] uppercase tracking-wider text-paper/50">
+        <label className="mb-1.5 block font-display text-[11px]  tracking-wider text-paper/50">
           Email
         </label>
         <input
@@ -32,7 +32,7 @@ export default function LoginForm({ next }: { next?: string }) {
       </div>
 
       <div>
-        <label className="mb-1.5 block font-mono text-[11px] uppercase tracking-wider text-paper/50">
+        <label className="mb-1.5 block font-display text-[11px]  tracking-wider text-paper/50">
           Kata Sandi
         </label>
         <input
@@ -56,7 +56,7 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={pending}
-      className="w-full rounded-sm bg-gold px-5 py-3 font-mono text-xs uppercase tracking-wider text-ink transition hover:bg-gold/90 disabled:opacity-50"
+      className="w-full rounded-sm bg-gold px-5 py-3 font-display text-xs  tracking-wider text-ink transition hover:bg-gold/90 disabled:opacity-50"
     >
       {pending ? "Memeriksa…" : "Masuk"}
     </button>
