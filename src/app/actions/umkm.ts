@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { uniqueSlug } from "@/lib/utils";
+import { requireAdmin } from "@/lib/session";
 import type { BusinessType, UmkmCondition } from "@prisma/client";
 
 export type UmkmFormState = {
@@ -39,6 +40,7 @@ function readForm(formData: FormData) {
 
 /** Membuat data UMKM baru hasil pendataan lapangan. */
 export async function createUmkm(_prevState: UmkmFormState, formData: FormData): Promise<UmkmFormState> {
+  await requireAdmin();
   const data = readForm(formData);
 
   if (!data.businessName || !data.ownerName || !data.address || !data.rt) {
@@ -64,6 +66,7 @@ export async function updateUmkm(
   _prevState: UmkmFormState,
   formData: FormData,
 ): Promise<UmkmFormState> {
+  await requireAdmin();
   const data = readForm(formData);
 
   if (!data.businessName || !data.ownerName || !data.address || !data.rt) {
@@ -84,6 +87,7 @@ export async function updateUmkm(
 
 /** Menghapus data UMKM. */
 export async function deleteUmkm(id: string) {
+  await requireAdmin();
   await prisma.umkm.delete({ where: { id } });
   revalidatePath("/");
   revalidatePath("/peta");
